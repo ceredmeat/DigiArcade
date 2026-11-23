@@ -1,0 +1,74 @@
+{
+ "id": "digiarcade",
+ "version": "0.1",
+ "title": "DIGIARCADE: 21 games on one master page, playing along with your pattern",
+ "category": "Fun",
+ "license": "GPL-2.0-or-later",
+ "author": "Cere, made with Claude",
+ "description": "A game pack on one master page (FUNC + LFO, then LEFT/RIGHT to ARC): UP/DOWN, any knob or a trig key picks a game, YES opens it, NO goes back. 21 games: RHYTHM GAME (your own pattern's trigs fall down 8 lanes, hit them on the trig keys), SIMON, BREAKOUT, SNAKE, PONG (1 or 2 players), TETRIS, FLAPPY, SPACE INVADERS, WHACK-A-MOLE, LIGHTS OUT, EAR TRAINER, BEAT MATCH, LUNAR LANDER, TRON (1 or 2 players), MINESWEEPER, HELLTAKT (a first-person maze shooter: a from-scratch raycaster, not the Doom engine), DRUM HERO 2P, PATTERN COPY, PINBALL, SEQUENCER PUZZLE and DUNGEON. Many play along with your pattern (falling on your steps, marching to your tempo) and play your track sounds. With LED COLORS 1.0+ the trig keys light up for every game. Best scores saved. Needs core 4.4 and seq-events.",
+ "device": "digitakt-mk1",
+ "os": "1.54",
+ "sources": [
+  "digiarcade.c"
+ ],
+ "cflags": [
+  "-Os",
+  "-fno-tree-loop-distribute-patterns",
+  "-DEMMC_READ_AT=0x400e2c14",
+  "-DEMMC_WRITE_AT=0x400e2dfa",
+  "-DSAVE_BLOCK=0x6004d"
+ ],
+ "subscribe": [
+  {
+   "event": "ev_tick",
+   "fn": "gm_tick",
+   "order": 92
+  },
+  {
+   "event": "ev_fire_vel",
+   "fn": "gm_fire",
+   "order": 97
+  },
+  {
+   "event": "ev_gen_trig",
+   "fn": "gm_step",
+   "order": 97
+  },
+  {
+   "event": "ev_render_master",
+   "fn": "gm_master",
+   "order": 96
+  },
+  {
+   "event": "ev_key",
+   "fn": "gm_key",
+   "order": 1
+  }
+ ],
+ "contribute": [
+  {
+   "to": "core_mpages",
+   "order": 80,
+   "data": "00000000",
+   "relocs": [
+    [
+     0,
+     "abs32",
+     "sym:gm_page",
+     0
+    ]
+   ]
+  }
+ ],
+ "requires": [
+  "core",
+  "seq-events"
+ ],
+ "resources": {
+  "names": [
+   "ui:master page GMS",
+   "emmc:0x6004d"
+  ],
+  "core": "4.2"
+ }
+}
