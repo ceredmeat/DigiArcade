@@ -73,7 +73,7 @@ No firmware is included in this repository: the `.syx` contains Elektron's firmw
 
 ## Tested on a unit
 
-(add yours)
+Tested on a Digitakt MKI running OS 1.54, with LED COLORS for the trig lights.
 
 ## Licence
 
